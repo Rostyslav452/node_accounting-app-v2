@@ -18,6 +18,12 @@ const getById = (req, res, next) => {
 
     const user = userService.getById(id);
 
+    if (!user) {
+      res.sendStatus(404);
+
+      return;
+    }
+
     res.status(200).json(user);
   } catch (error) {
     res.sendStatus(404);

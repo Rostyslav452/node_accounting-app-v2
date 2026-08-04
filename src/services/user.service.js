@@ -5,16 +5,7 @@ const getAll = () => {
 };
 
 const getById = (id) => {
-  const user = users.find((element) => element.id === id);
-
-  if (!user) {
-    const error = new Error('User not found');
-
-    error.statusCode = 400;
-    throw error;
-  }
-
-  return user;
+  return users.find((element) => element.id === id);
 };
 
 const create = (name) => {
@@ -29,13 +20,21 @@ const create = (name) => {
 const update = (id, data) => {
   const user = getById(id);
 
+  if (!user) {
+    throw new Error('User not found');
+  }
+
   Object.assign(user, data);
 
   return user;
 };
 
 const remove = (id) => {
-  getById(id);
+  const user = getById(id);
+
+  if (!user) {
+    throw new Error('User not found');
+  }
 
   const index = users.findIndex((element) => element.id === id);
 

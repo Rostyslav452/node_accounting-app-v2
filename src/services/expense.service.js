@@ -34,7 +34,14 @@ const getById = (id) => {
 };
 
 const create = (data) => {
-  userService.getById(data.userId);
+  const user = userService.getById(data.userId);
+
+  if (!user) {
+    const error = new Error('User not found');
+
+    error.statusCode = 400;
+    throw error;
+  }
 
   const id = Math.ceil(Math.random() * 999999999999);
   const expense = { id, ...data };

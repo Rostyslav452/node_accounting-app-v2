@@ -82,6 +82,8 @@ const update = (req, res, next) => {
 
     if (!id) {
       res.sendStatus(400);
+
+      return;
     }
 
     const createdUser = expenseService.update(id, data);
