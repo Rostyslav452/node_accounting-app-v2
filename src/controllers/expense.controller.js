@@ -63,7 +63,7 @@ const create = (req, res, next) => {
 
     res.status(201).json(createdExpense);
   } catch (error) {
-    res.sendStatus(400);
+    res.sendStatus(error.statusCode);
   }
 };
 
@@ -79,6 +79,10 @@ const update = (req, res, next) => {
       category,
       note,
     };
+
+    if (!id) {
+      res.sendStatus(400);
+    }
 
     const createdUser = expenseService.update(id, data);
 

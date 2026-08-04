@@ -8,7 +8,10 @@ const getById = (id) => {
   const user = users.find((element) => element.id === id);
 
   if (!user) {
-    throw new Error('Not found');
+    const error = new Error('User not found');
+
+    error.statusCode = 400;
+    throw error;
   }
 
   return user;
